@@ -1,0 +1,24 @@
+{
+  "apiKeys": {
+    "openai": ""
+  },
+  "agents": {
+    "openai-gpt4": {
+      "type": "openai",
+      "model": "gpt-4"
+    },
+    "openai-gpt35": {
+      "type": "openai",
+      "model": "gpt-3.5-turbo"
+    }
+  },
+  "defaultModel": "gpt-4",
+  "testDefaults": {
+    "framework": "jest",
+    "coverage": 80,
+    "maxRetries": 3,
+    "timeout": 5000
+  },
+  "outputPath": "./test-output",
+  "maxConcurrency": 5
+}
