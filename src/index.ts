@@ -30,4 +30,5 @@ export * from './core/types';
 export * from './agents/openaiAgent';
 export * from './utils/testGenerator';
 export * from './utils/testRunner';
+export * from './utils/testReporter';
 export * from './utils/codeParser';

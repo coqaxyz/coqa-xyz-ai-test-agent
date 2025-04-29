@@ -79,7 +79,11 @@ For more complex setups, you can define multiple agents and customize their beha
     "framework": "jest",
     "coverage": 90,
     "maxRetries": 2,
-    "timeout": 10000
+    "timeout": 10000,
+    "reporting": {
+      "formats": ["json", "xml"],
+      "includeTimestamp": true
+    }
   },
   "outputPath": "./custom-tests",
   "maxConcurrency": 3
@@ -145,9 +149,55 @@ const results = await testManager.generateAndRunTests('./src/services/api.ts', {
   coverage: 95,
   timeout: 10000,
   maxRetries: 2,
-  testPath: './custom-tests/api.service.spec.ts'
+  testPath: './custom-tests/api.service.spec.ts',
+  reporting: {
+    formats: [ReportFormat.JSON, ReportFormat.XML],
+    outputPath: './reports',
+    includeTimestamp: true
+  }
 });
 ```
+
+### Test Reporting
+
+The testing agent can generate reports in various formats:
+
+```typescript
+import { initializeAgent, ReportFormat } from 'ai-testing-agent';
+
+async function main() {
+  const { testManager } = await initializeAgent();
+  
+  // Generate tests with JSON and XML reports
+  const results = await testManager.generateAndRunTests('./src/utils/parser.ts', {
+    reporting: {
+      formats: [ReportFormat.JSON, ReportFormat.XML],
+      outputPath: './test-reports',
+      includeTimestamp: true
+    }
+  });
+  
+  // Run existing tests with reports
+  await testManager.runExistingTests('./tests/parser.test.ts', {
+    reportFormats: [ReportFormat.JSON, ReportFormat.XML],
+    outputPath: './test-reports'
+  });
+}
+
+main().catch(console.error);
+```
+
+#### Report Format
+
+JSON reports include:
+- Test summary (total, passed, failed tests)
+- Detailed test results with timing information
+- Failed test details with error messages
+
+XML reports follow JUnit format, which is compatible with most CI systems:
+- Standard testsuites/testsuite/testcase structure
+- Failure details for each failed test
+- Timing information for performance tracking
 
 ### Working with Agent Directly
 

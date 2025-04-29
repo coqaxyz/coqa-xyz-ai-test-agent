@@ -2,16 +2,19 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs/promises';
-import { TestResult, TestRunner } from '../core/types';
+import { TestResult, TestRunner, ReportFormat } from '../core/types';
 import logger from '../core/logger';
+import { TestReporter } from './testReporter';
 
 const execPromise = promisify(exec);
 
 export class JestTestRunner implements TestRunner {
   private projectRoot: string;
+  private reporter: TestReporter;
   
   constructor(projectRoot: string = process.cwd()) {
     this.projectRoot = projectRoot;
+    this.reporter = new TestReporter();
   }
   
   async runTests(testPath: string, options: Record<string, any> = {}): Promise<TestResult[]> {
@@ -101,13 +104,36 @@ export class JestTestRunner implements TestRunner {
     
     return results;
   }
+  
+  async generateReport(
+    results: TestResult[], 
+    analysis: any, 
+    formats: ReportFormat[], 
+    outputPath: string
+  ): Promise<string[]> {
+    const reportPaths: string[] = [];
+    
+    for (const format of formats) {
+      const reportPath = await this.reporter.generateReport(results, analysis, {
+        format,
+        outputPath,
+        includeTimestamp: true,
+      });
+      
+      reportPaths.push(reportPath);
+    }
+    
+    return reportPaths;
+  }
 }
 
 export class PlaywrightTestRunner implements TestRunner {
   private projectRoot: string;
+  private reporter: TestReporter;
   
   constructor(projectRoot: string = process.cwd()) {
     this.projectRoot = projectRoot;
+    this.reporter = new TestReporter();
   }
   
   async runTests(testPath: string, options: Record<string, any> = {}): Promise<TestResult[]> {
@@ -195,5 +221,26 @@ export class PlaywrightTestRunner implements TestRunner {
     for (const childSuite of suite.suites || []) {
       this.extractPlaywrightTestResults(childSuite, results);
     }
+  }
+  
+  async generateReport(
+    results: TestResult[], 
+    analysis: any, 
+    formats: ReportFormat[], 
+    outputPath: string
+  ): Promise<string[]> {
+    const reportPaths: string[] = [];
+    
+    for (const format of formats) {
+      const reportPath = await this.reporter.generateReport(results, analysis, {
+        format,
+        outputPath,
+        includeTimestamp: true,
+      });
+      
+      reportPaths.push(reportPath);
+    }
+    
+    return reportPaths;
   }
 }

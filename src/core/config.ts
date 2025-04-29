@@ -16,6 +16,10 @@ const ConfigSchema = z.object({
     coverage: z.number().default(80),
     maxRetries: z.number().default(3),
     timeout: z.number().default(5000),
+    reporting: z.object({
+      formats: z.array(z.string()).default([]),
+      includeTimestamp: z.boolean().default(true),
+    }).optional(),
   }),
   outputPath: z.string().default('./output'),
   maxConcurrency: z.number().default(5),
@@ -38,6 +42,10 @@ export function loadConfig(configPath: string = '.ai-testing-agent.json'): Confi
           coverage: 80,
           maxRetries: 3,
           timeout: 5000,
+          reporting: {
+            formats: [],
+            includeTimestamp: true,
+          },
         },
         outputPath: './output',
         maxConcurrency: 5,

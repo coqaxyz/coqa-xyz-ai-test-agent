@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs/promises';
-import { TestConfig, TestType, TestFramework } from './types';
+import { TestConfig, TestType, TestFramework, ReportFormat } from './types';
 import { AgentManager } from './agentManager';
 import { Config } from './config';
 import { AITestGenerator } from '../utils/testGenerator';
@@ -27,6 +27,11 @@ export class TestManager {
       coverage: options.coverage || this.config.testDefaults.coverage,
       maxRetries: options.maxRetries || this.config.testDefaults.maxRetries,
       timeout: options.timeout || this.config.testDefaults.timeout,
+      reporting: options.reporting || {
+        formats: this.config.testDefaults.reporting?.formats?.map(f => f as ReportFormat) || [],
+        outputPath: this.config.outputPath,
+        includeTimestamp: this.config.testDefaults.reporting?.includeTimestamp || true,
+      },
     };
     
     try {
@@ -62,6 +67,18 @@ export class TestManager {
       
       // Analyze results
       const analysis = await runner.analyzeResults(results);
+      
+      // Generate reports if reporting is enabled
+      if (testConfig.reporting?.formats && testConfig.reporting.formats.length > 0) {
+        const outputPath = testConfig.reporting.outputPath || this.config.outputPath;
+        await runner.generateReport!(
+          results, 
+          analysis, 
+          testConfig.reporting.formats, 
+          outputPath
+        );
+      }
+      
       return analysis;
     } catch (error) {
       logger.error(`Error generating and running tests`, { error });
@@ -82,6 +99,18 @@ export class TestManager {
       
       // Analyze results
       const analysis = await runner.analyzeResults(results);
+      
+      // Generate reports if reporting formats are specified
+      if (options.reportFormats && Array.isArray(options.reportFormats) && options.reportFormats.length > 0) {
+        const outputPath = options.outputPath || this.config.outputPath;
+        await runner.generateReport!(
+          results, 
+          analysis, 
+          options.reportFormats.map((f: string) => f as ReportFormat), 
+          outputPath
+        );
+      }
+      
       return analysis;
     } catch (error) {
       logger.error(`Error running existing tests`, { error });
