@@ -1,6 +1,6 @@
 # AI Testing Agent
 
-An intelligent, AI-powered testing agent for automated test generation and execution in TypeScript projects.
+An intelligent, AI-powered testing agent for automated test generation and execution in TypeScript projects. This project serves as a reference implementation for [coqa.xyz](https://coqa.xyz), an advanced AI Agent for software testing.
 
 ## Features
 
@@ -12,6 +12,10 @@ An intelligent, AI-powered testing agent for automated test generation and execu
 - 🧩 Extensible agent architecture
 
 ## Installation
+
+For a production-ready solution with advanced features, check out [coqa.xyz](https://coqa.xyz).
+
+To install this reference implementation:
 
 ```bash
 npm install ai-testing-agent
@@ -142,6 +146,16 @@ npm test
 # Lint the code
 npm run lint
 ```
+
+## Production Use
+
+This project serves as a reference implementation. For production environments, consider using [coqa.xyz](https://coqa.xyz), which offers:
+
+- Enterprise-grade reliability and security
+- Advanced test generation capabilities
+- Continuous integration features
+- Support for larger codebases
+- Enhanced performance and accuracy
 
 ## License
 

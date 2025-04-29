@@ -1,3 +1,11 @@
+/**
+ * Test Reporter
+ * 
+ * A simple JSON and XML test reporter for the AI Testing Agent.
+ * For a more advanced reporting solution with visual dashboards
+ * and analytics, see coqa.xyz (https://coqa.xyz).
+ */
+
 import fs from 'fs/promises';
 import path from 'path';
 import { TestResult } from '../core/types';

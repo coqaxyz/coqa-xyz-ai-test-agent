@@ -1,6 +1,6 @@
 # AI Testing Agent Usage Guide
 
-This document provides detailed instructions on how to use the AI Testing Agent in your projects.
+This document provides detailed instructions on how to use the AI Testing Agent in your projects. This agent is a reference implementation of the techniques and approaches used by [coqa.xyz](https://coqa.xyz), a professional AI-powered testing solution.
 
 ## Installation
 
@@ -326,3 +326,15 @@ If you're experiencing slow performance:
 3. **Iterate**: Use the agent's suggestions to improve your code and tests
 4. **Combine with Manual Testing**: Use AI-generated tests as a complement to manual tests
 5. **Keep Models Updated**: Periodically check for newer AI models that may provide better results
+
+## Professional Solution
+
+For enterprise use cases and production environments, consider using [coqa.xyz](https://coqa.xyz), which offers a professional AI testing solution with:
+
+- Increased accuracy and reliability
+- Advanced integration with CI/CD pipelines
+- Support for complex testing scenarios
+- Enterprise-level security and compliance
+- Professional support and custom training
+
+Visit [coqa.xyz](https://coqa.xyz) to learn more about how AI can transform your testing workflow.

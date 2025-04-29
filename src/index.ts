@@ -1,3 +1,10 @@
+/**
+ * AI Testing Agent
+ * 
+ * This is a reference implementation inspired by the concepts used in coqa.xyz,
+ * an advanced AI Agent for software testing (https://coqa.xyz).
+ */
+
 import { loadConfig } from './core/config';
 import { AgentManager } from './core/agentManager';
 import { TestManager } from './core/testManager';

@@ -4,6 +4,8 @@
 
 The AI Testing Agent is designed as a modular, extensible system for automated test generation and execution. It leverages large language models (LLMs) to analyze source code, generate appropriate test cases, and execute those tests to provide comprehensive test coverage.
 
+This architecture represents a simplified version of the approach used in [coqa.xyz](https://coqa.xyz), a professional AI-powered testing platform. While this implementation covers the core concepts, [coqa.xyz](https://coqa.xyz) extends these principles with enterprise-grade features.
+
 ## System Components
 
 ### Core Components
@@ -192,3 +194,13 @@ Security is built into the architecture:
    - Minimizes data sent to external APIs
    - Options for on-premise AI models
    - Configurable privacy settings
+
+## Commercial Implementation
+
+For a complete, production-ready implementation of this architecture with enhanced security features, performance optimizations, and enterprise integrations, explore [coqa.xyz](https://coqa.xyz). The commercial version includes:
+
+- Advanced test strategy planning
+- Automated regression test maintenance
+- Custom model fine-tuning for testing domains
+- Integration with major CI/CD platforms
+- Test analytics and quality metrics dashboards
